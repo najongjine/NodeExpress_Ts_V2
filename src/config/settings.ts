@@ -16,6 +16,7 @@ var typeOrmDb1 = {
 };
 const cryptoKey = 'cryptoKeySample@#@$%#%$#@!!';
 const jwtKey = 'jwtKeySample@#@$%#%$#@!!';
+let mongoDBConnString = '';
 
 if (ENV_MODE === 'dev') {
   typeOrmDb1.type = 'mysql';
@@ -26,6 +27,8 @@ if (ENV_MODE === 'dev') {
   typeOrmDb1.database = '안.알.야.줌';
   typeOrmDb1.synchronize = false;
   typeOrmDb1.logging = false;
+
+  mongoDBConnString = `안.알.야.줌`;
 } else {
   typeOrmDb1.type = 'mysql';
   typeOrmDb1.host = '안.알.야.줌';
@@ -35,6 +38,14 @@ if (ENV_MODE === 'dev') {
   typeOrmDb1.database = '안.알.야.줌';
   typeOrmDb1.synchronize = false;
   typeOrmDb1.logging = false;
+
+  mongoDBConnString = `안.알.야.줌`;
 }
 
-exports.configSettings = { typeOrmDb1, ENV_MODE, cryptoKey, jwtKey };
+exports.configSettings = {
+  typeOrmDb1,
+  ENV_MODE,
+  cryptoKey,
+  jwtKey,
+  mongoDBConnString,
+};

@@ -53,7 +53,7 @@ createConnection()
 
 /** mongodb */
 MongoClient.connect(
-  'mongodb+srv://najongjine:jongjin2@nest.jte3b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+  configSettings.mongoDBConnString,
   function (에러: Error, client: any) {
     if (에러) return console.log(에러);
 
@@ -175,16 +175,21 @@ http.listen(8080, function () {
   console.log('listening on 8080');
 });
 
-app.use(catsRouter);
+app.get('/', function (req, res) {
+  res.status(200).json({
+    success: true,
+    data: 'server is running',
+    custMsg: '',
+    errMsg: '',
+  });
+});
 app.use('/ejs', ejsCrudRouter);
 app.use('/typeorm', typeormRouter);
-app.use('/azure', azureRouter);
+//app.use('/azure', azureRouter);
 app.use('/socket', socketRouter(passport));
 app.use('/validator', validatorRouter);
 app.use('/jwt', jwtRouter);
-app.get('/test1', function (req, res) {
-  throw new Error('dummy');
-});
+
 app.get('/list', function (요청, 응답) {
   mongoDb
     .collection('post')
@@ -194,21 +199,6 @@ app.get('/list', function (요청, 응답) {
       응답.render('list.ejs', { posts: 결과 });
     });
 });
-
-/** Global Exception Handler */
-app.use(function (
-  err: Error,
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction,
-) {
-  // err.stack 은 전체 에러 정보
-  //console.log("!!! err stack: ", err.stack);
-  // err.message 는 에러 메세지만
-  console.log('!!! err msg: ', err.message);
-  res.json({ success: false, data: null, customMsg: '', err: err.message });
-});
-/** END */
 
 /** socket */
 io.on('connection', function (socket: any) {

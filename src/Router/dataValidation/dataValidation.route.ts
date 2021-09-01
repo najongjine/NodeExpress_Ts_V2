@@ -27,7 +27,7 @@ router.get('/', async function (요청, 응답) {
     let testOjbEnc = encryption.objEncrypt({ test: 'test' });
     let testObjDec = encryption.objDecrypt(testOjbEnc);
     응답.status(200).json({ testTxtEnc, testTxtDecc, testOjbEnc, testObjDec });
-  } catch (error) {
+  } catch (error: any) {
     응답.status(200).json({
       success: false,
       data: null,

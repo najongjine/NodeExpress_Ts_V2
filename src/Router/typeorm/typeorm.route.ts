@@ -38,7 +38,7 @@ router.get('/users', async function (요청, 응답) {
       .getMany();
 
     응답.status(200).json(users);
-  } catch (err) {
+  } catch (err: any) {
     응답.status(200).json({
       success: false,
       data: null,
@@ -69,7 +69,7 @@ router.get('/rawquery', async function (요청, 응답) {
     );
 
     응답.status(200).json(users);
-  } catch (err) {
+  } catch (err: any) {
     응답.status(200).json({
       success: false,
       data: null,
@@ -101,7 +101,7 @@ router.post('/users', async (req, res) => {
 
       return res.status(200).json({ userResult, postResult });
     });
-  } catch (error) {
+  } catch (error: any) {
     return res.status(200).json({
       success: false,
       data: null,

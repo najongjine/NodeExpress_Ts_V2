@@ -16,7 +16,7 @@ router.get('/cats', (req, res) => {
         cats,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).send({
       success: false,
       error: error.message,
@@ -38,7 +38,7 @@ router.get('/cats/:id', (req, res) => {
         cat,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).send({
       success: false,
       error: error.message,
@@ -55,7 +55,7 @@ router.post('/cats', (req, res) => {
       success: true,
       data: { data },
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).send({
       success: false,
       error: error.message,
@@ -81,7 +81,7 @@ router.put('/cats/:id', (req, res) => {
         cat: result,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).send({
       success: false,
       error: error.message,
@@ -107,7 +107,7 @@ router.patch('/cats/:id', (req, res) => {
         cat: result,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).send({
       success: false,
       error: error.message,
@@ -124,7 +124,7 @@ router.delete('/cats/:id', (req, res) => {
       success: true,
       data: newCat,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).send({
       success: false,
       error: error.message,

@@ -1,5 +1,4 @@
 import * as express from 'express';
-import catsRouter from './Router/cats/cats.route';
 import ejsCrudRouter from './Router/ejsStyle/basicCrud.route';
 import typeormRouter from './Router/typeorm/typeorm.route';
 import azureRouter from './Router/azureStorage/azureStorage.route';

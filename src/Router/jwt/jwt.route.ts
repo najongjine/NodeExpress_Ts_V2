@@ -28,7 +28,7 @@ async function checkJwtToken(
     let payload = jwtVerification.verifyToken(req.headers.authorization);
     userInfo = payload;
     next();
-  } catch (error) {
+  } catch (error: any) {
     res.status(200).json({
       success: false,
       data: null,
@@ -44,7 +44,7 @@ router.get('/', async function (요청, 응답) {
     let token = jwtVerification.signJwt({ test: 'test' });
     let payload = jwtVerification.verifyToken(token);
     응답.status(200).json({ payload });
-  } catch (error) {
+  } catch (error: any) {
     응답.status(200).json({
       success: false,
       data: null,

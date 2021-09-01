@@ -11,7 +11,7 @@ var dbConfig = {
   password: configSettings.typeOrmDb1.password,
   database: configSettings.typeOrmDb1.database,
   entities: [`dist/entity/**/*.js`],
-  synchronize: false,
+  synchronize: configSettings.typeOrmDb1.synchronize,
   logging: configSettings.typeOrmDb1.logging,
   migrations: ['migration/*.js'], //migration 하고싶은 파일 명
   cli: {

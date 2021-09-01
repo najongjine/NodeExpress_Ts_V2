@@ -13,7 +13,7 @@ var dbConfig = {
   entities: [`dist/entity/**/*.js`],
   synchronize: false,
   logging: configSettings.typeOrmDb1.logging,
-  migrations: ['migration/1630292273303-fk2.js'], //migration 하고싶은 파일 명
+  migrations: ['migration/*.js'], //migration 하고싶은 파일 명
   cli: {
     migrationsDir: 'migration',
   },

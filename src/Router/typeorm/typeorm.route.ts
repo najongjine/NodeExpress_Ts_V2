@@ -3,6 +3,7 @@ import * as express from 'express';
 import { User } from '../../entity/User';
 import * as typeorm from 'typeorm';
 import { Post } from '../../entity/Post';
+import { SubPost } from '../../entity/SubPost';
 
 //router 인스턴스를 하나 만들고
 const router = Router();
@@ -24,6 +25,7 @@ router.get('/', function (요청, 응답) {
   응답.status(200).send('this router works');
 });
 
+/** https://github.com/typeorm/typeorm/blob/master/docs/select-query-builder.md#joining-relations */
 router.get('/users', async function (요청, 응답) {
   try {
     const users = await mysql1
@@ -31,10 +33,13 @@ router.get('/users', async function (요청, 응답) {
       .select('user.id')
       .addSelect('user.firstName')
       .from(User, 'user')
-      .innerJoinAndSelect('user.posts', 'post')
+      .leftJoinAndSelect('user.posts', 'post')
+      .leftJoinAndSelect('post.subPosts', 'subPost')
       .where('')
-      .offset(0)
-      .limit(1000)
+      .andWhere('post.id > :id', { id: 0 })
+      .andWhere('subPost.id > :id', { id: 0 })
+      .skip(0)
+      .take(1000)
       .getMany();
 
     응답.status(200).json(users);
@@ -96,6 +101,16 @@ router.post('/users', async (req, res) => {
           user: userResult,
           title: 'test post title2',
           text: 'test post text2',
+        },
+      ]);
+      const subPostResult = await transactionalEntityManager.save(SubPost, [
+        {
+          test: `test${new Date().getUTCMilliseconds()}`,
+          post: postResult[0],
+        },
+        {
+          test: `test${new Date().getUTCMilliseconds()}`,
+          post: postResult[0],
         },
       ]);
 

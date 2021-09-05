@@ -4,8 +4,10 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { User } from './User';
+import { SubPost } from './SubPost';
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn()
@@ -26,4 +28,7 @@ export class Post {
   })
   @JoinColumn({ name: 'userId' })
   user!: User;
+
+  @OneToMany(() => SubPost, (subPost) => subPost.post, { nullable: true })
+  subPosts!: SubPost[];
 }

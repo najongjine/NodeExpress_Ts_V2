@@ -12,6 +12,9 @@ export class User {
   @Column()
   lastName!: string;
 
+  @Column({ select: false })
+  password!: string;
+
   @OneToMany(() => Post, (post) => post.user, { nullable: true })
   posts!: Post[];
 }

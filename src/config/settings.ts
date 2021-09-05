@@ -20,26 +20,26 @@ let mongoDBConnString = '';
 
 if (ENV_MODE === 'dev') {
   typeOrmDb1.type = 'mysql';
-  typeOrmDb1.host = '221.156.48.39';
+  typeOrmDb1.host = '안알랴줌';
   typeOrmDb1.port = 3306;
-  typeOrmDb1.username = 'najongjine';
-  typeOrmDb1.password = 'jongjin2';
+  typeOrmDb1.username = '안알랴줌';
+  typeOrmDb1.password = '안알랴줌';
   typeOrmDb1.database = 'test';
   typeOrmDb1.synchronize = false;
   typeOrmDb1.logging = false;
 
-  mongoDBConnString = `mongodb+srv://najongjine:jongjin2@nest.jte3b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+  mongoDBConnString = `안알랴줌`;
 } else {
   typeOrmDb1.type = 'mysql';
-  typeOrmDb1.host = '221.156.48.39';
+  typeOrmDb1.host = '안알랴줌';
   typeOrmDb1.port = 3306;
-  typeOrmDb1.username = 'najongjine';
-  typeOrmDb1.password = 'jongjin2';
+  typeOrmDb1.username = '안알랴줌';
+  typeOrmDb1.password = '안알랴줌';
   typeOrmDb1.database = 'test';
   typeOrmDb1.synchronize = false;
   typeOrmDb1.logging = false;
 
-  mongoDBConnString = `mongodb+srv://najongjine:jongjin2@nest.jte3b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+  mongoDBConnString = `안알랴줌`;
 }
 
 exports.configSettings = {

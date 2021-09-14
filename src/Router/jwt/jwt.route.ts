@@ -21,12 +21,12 @@ async function checkJwtToken(
   mysql1 = req.app.get('mysql1');
 
   try {
-    if (!req.headers.authorization) {
-      custMsg = 'no jwt token';
-      throw new Error('no jwt token');
-    }
-    let payload = jwtVerification.verifyToken(req.headers.authorization);
-    userInfo = payload;
+    // if (!req.headers.authorization) {
+    //   custMsg = 'no jwt token';
+    //   throw new Error('no jwt token');
+    // }
+    // let payload = jwtVerification.verifyToken(req.headers.authorization);
+    // userInfo = payload;
     next();
   } catch (error: any) {
     res.status(200).json({
@@ -41,9 +41,13 @@ router.use(checkJwtToken);
 
 router.get('/', async function (요청, 응답) {
   try {
-    let token = jwtVerification.signJwt({ test: 'test' });
+    let token = jwtVerification.signJwt({
+      test: 'test',
+      test2: 'test2',
+      test3: 'test3',
+    });
     let payload = jwtVerification.verifyToken(token);
-    응답.status(200).json({ payload });
+    응답.status(200).json({ token });
   } catch (error: any) {
     응답.status(200).json({
       success: false,

@@ -4,12 +4,13 @@ import { User } from '../../entity/User';
 import * as typeorm from 'typeorm';
 import { Post } from '../../entity/Post';
 import { SubPost } from '../../entity/SubPost';
+const bcrypt = require('bcrypt');
 
 //router 인스턴스를 하나 만들고
 const router = Router();
 
 let mysql1: typeorm.Connection;
-let imgUpload = require('../../multer/imageUpload');
+import imgUpload from '../../multer/imageUpload';
 
 function getTypeormMysqlInstance(
   req: express.Request,
@@ -32,8 +33,12 @@ router.get('/users', async function (요청, 응답) {
       .createQueryBuilder()
       .select('user.id')
       .addSelect('user.firstName')
+      .addSelect('user.lastName')
+      // User 라는 entity를 user라는 별명으로 지어줌
       .from(User, 'user')
+      //user 테이블에 post 테이블을 leftjoin 시켜주는 코드. User entity 에 있는 posts 라는 변수를 post 라는 별명으로 지어줌
       .leftJoinAndSelect('user.posts', 'post')
+      //post 테이블에 subpost 테이블을 leftjoin 시켜주는 코드. Post entity 에 있는 subPosts 라는 변수를 subPost 라는 별명으로 지어줌
       .leftJoinAndSelect('post.subPosts', 'subPost')
       .where('')
       .andWhere('post.id > :id', { id: 0 })
@@ -67,10 +72,11 @@ router.get('/rawquery', async function (요청, 응답) {
       `
     SELECT 
     * 
-    FROM user
-    WHERE user.firstName = ?
+    FROM user as u
+    LEFT JOIN post as p ON u.id=p.userId AND p.id > ?
+    WHERE u.firstName != ?
     `,
-      [testInput],
+      [0, testInput],
     );
 
     응답.status(200).json(users);
@@ -86,10 +92,12 @@ router.get('/rawquery', async function (요청, 응답) {
 
 router.post('/users', async (req, res) => {
   try {
+    const hash = await bcrypt.hashSync('test', 10);
     await mysql1.transaction(async (transactionalEntityManager) => {
       const userResult = await transactionalEntityManager.save(User, {
         firstName: `test${new Date().getUTCMilliseconds()}`,
         lastName: `test${new Date().getUTCMilliseconds()}`,
+        password: hash,
       });
       const postResult = await transactionalEntityManager.save(Post, [
         {

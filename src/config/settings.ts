@@ -30,7 +30,7 @@ if (ENV_MODE === 'dev') {
 
   mongoDBConnString = `안알랴줌`;
 } else {
-  typeOrmDb1.type = 'mysql';
+  typeOrmDb1.type = '안알랴줌';
   typeOrmDb1.host = '안알랴줌';
   typeOrmDb1.port = 3306;
   typeOrmDb1.username = '안알랴줌';

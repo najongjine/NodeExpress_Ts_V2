@@ -7,7 +7,6 @@ const bcrypt = require('bcrypt');
 const router = Router();
 
 let mongodb: any;
-//let imgUpload = require('../../multer/imageUpload');
 import imgUpload from '../../multer/imageUpload';
 
 function getMongodbInstance(
@@ -167,8 +166,8 @@ router.get('/upload', function (요청, 응답) {
 /** upload.single 일땐 req.file에 파일 정보 있음
  *  upload.array 일땐 req.files에 파일정보 있음
  */
-router.post('/upload', imgUpload.array('프로필'), function (요청, 응답) {
-  응답.send('업로드완료');
+router.post('/upload', imgUpload.array('프로필'), function (req, res) {
+  res.send('업로드완료');
 });
 router.get('/image/:imageName', function (요청, 응답) {
   응답.sendFile(__dirname + '/public/image/' + 요청.params.imageName);
